@@ -68,7 +68,7 @@ input[type="number"]:focus {
     gap: 15px;
 }
 
-/* --- ざっくり計算セクション（控えめに） --- */
+/* --- ざっくり計算 --- */
 .zakkuri-section {
     background: #fafafa; 
     border: 1px solid #eee; 
@@ -137,7 +137,6 @@ input:checked ~ .toggle-status {
     color: #5e42a6;
 }
 
-/* --- ★★★ ここからが修正点 ★★★ --- */
 
 /* ボタン式ラジオ */
 .zakkuri-options {
@@ -149,8 +148,6 @@ input:checked ~ .toggle-status {
     gap: 8px;
 }
 /* ★ ただし、デフォルトでは非表示にする（JSで制御する） */
-/* (もしJSが古いと、最初から表示されてしまう可能性があります) */
-/* (その場合は、user_130 の JS に更新してください) */
 
 
 .zakkuri-options input[type="radio"] {
@@ -174,9 +171,6 @@ input:checked ~ .toggle-status {
 .zakkuri-options .button-label:hover {
     border-color: #aaa;
 }
-
-/* --- ★★★ 修正ここまで ★★★ --- */
-
 
 /* --- ボタンのスタイル --- */
 button {
