@@ -1,7 +1,6 @@
-// HTMLの読み込み完了を待ってから実行
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- HTMLの各要素（部品）を取得 ---
+    // HTMLの各要素を取得
     const inputX = document.getElementById('inputX');
     const inputY = document.getElementById('inputY');
     const ratioShield = document.getElementById('ratioShield');
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultZakkuri = document.getElementById('resultZakkuri');
 
 
-    // --- ざっくり計算 (ON/OFF) の制御 ---
+    // ざっくり計算 (ON/OFF) の制御
     zakkuriToggle.addEventListener('change', () => {
         if (zakkuriToggle.checked) {
             zakkuriStatus.textContent = 'ON';
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // --- 「計算する」ボタンがクリックされたときの処理 ---
+    // 「計算する」ボタンがクリックされたときの処理
     calculateButton.addEventListener('click', () => {
         
         errorMessage.textContent = '';
@@ -49,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const rShield = parseFloat(ratioShield.value);
         const rSpear = parseFloat(ratioSpear.value);
         const rBow = parseFloat(ratioBow.value);
-
-        // --- ★★★ ここからエラーチェック強化 ★★★ ---
-
-        // (1) そもそも数値として無効か (NaNチェック)
+        
+        // --- ★★★ エラーチェック ★★★ ---
+        
+        // (1) NaNチェック
         // parseFloatは "123abc" を 123 と読んでしまうため、
         // 入力値 (value) と parseFloat(value) が一致するかで厳密にチェック
         const x_num = parseFloat(x_val);
@@ -64,13 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return; 
         }
 
-        // (2) ★ NEW: 整数(Integer)かどうかのチェック
+        // (2) 整数かどうかのチェック
         if (!Number.isInteger(x_num) || !Number.isInteger(y_num)) {
             errorMessage.textContent = 'エラー：整数で入力してください';
             return;
         }
         
-        // (3) ★ NEW: x, y がマイナスでないか
+        // (3) x, y がマイナスでないか
         if (x_num < 0 || y_num < 0) {
             errorMessage.textContent = 'エラー：マイナスの値は入力できません';
             return;
@@ -88,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // (6) ★ 改善: 割合合計の「浮動小数点」対策
+        // (6) 割合合計の浮動小数点対策
         const totalRatio = rShield + rSpear + rBow;
         // 100 との差が 0.001 より大きい場合（99.999 や 100.001 ではない場合）にエラー
         if (Math.abs(totalRatio - 100) > 0.001) { 
@@ -100,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         // --- 正常な計算 ---
-        // (エラーチェックを通過したので、これ以降 x_num, y_num を x, yとして使う)
         const x = x_num;
         const y = y_num;
 
@@ -138,8 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayTotal = totalFinal - zakkuriRemainder;
 
                 // 盾槍弓の再分配
-                // (★改善) 割合の合計が100%なので、rShield + rSpear + rBow = 100
-                // 弓を「残り」にするロジックをより安全に
+                // 割合の合計が100%なので、rShield + rSpear + rBow = 100
                 displayShield = Math.floor(displayTotal * (rShield / 100));
                 displaySpear = Math.floor(displayTotal * (rSpear / 100));
                 
