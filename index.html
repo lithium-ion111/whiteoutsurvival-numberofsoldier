@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>駐屯人数計算機</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <meta property="og:title" content="駐屯人数計算機" />
+    
+    <meta property="og:description" content="クレイジージョイなどの駐屯時の1人当たりの兵士数を計算するツールです" />
+    
+    <meta property="og:type" content="website" />
+    
+    <meta property="og:url" content="https://whiteoutsurviva-numberofsoldiers-v4.netlify.app" />
+    
+    <meta property="og:image" content="https://whiteoutsurviva-numberofsoldiers-v4.netlify.app/image/image2.png" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+
+    </head>
+<body>
+
+    <div class="container">
+
+        <h2>駐屯人数計算機</h2>
+        <div>
+            <label for="inputX">箱の大きさ</label>
+            <input type="number" id="inputX" placeholder="箱の大きさを入力">
+        </div>
+        <div>
+            <label for="inputY">参加人数</label>
+            <input type="number" id="inputY" placeholder="参加人数を入力">
+        </div>
+        <hr> 
+        <h4>兵士割合 (%)</h4>
+        <div class="ratio-inputs">
+            <div>
+                <label for="ratioShield">盾 (%)</label>
+                <input type="number" id="ratioShield" value="60">
+            </div>
+            <div>
+                <label for="ratioSpear">槍 (%)</label>
+                <input type="number" id="ratioSpear" value="40">
+            </div>
+            <div>
+                <label for="ratioBow">弓 (%)</label>
+                <input type="number" id="ratioBow" value="0">
+            </div>
+        </div>
+        <div class="zakkuri-section">
+            <h4>🔍 ざっくり計算</h4>
+            <div class="zakkuri-toggle">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="zakkuriToggle">
+                    <span class="slider"></span>
+                </label>
+                <span id="zakkuriStatus" class="toggle-status">OFF</span>
+            </div>
+            <div id="zakkuriOptions" class="zakkuri-options">
+                <input type="radio" id="zakkuri100" name="zakkuriPlace" value="100" checked>
+                <label for="zakkuri100" class="button-label">100の位</label>
+                <input type="radio" id="zakkuri1000" name="zakkuriPlace" value="1000">
+                <label for="zakkuri1000" class="button-label">1000の位</label>
+                <input type="radio" id="zakkuri10000" name="zakkuriPlace" value="10000">
+                <label for="zakkuri10000" class="button-label">10000の位</label>
+            </div>
+        </div>
+        <button id="calculateButton">計算する！</button>
+        
+        <div id="errorMessage" class="error-message"></div>
+
+        <h3>1人当たりの兵士数</h3>
+        
+        <div id="resultDisplay" class="result-area">
+            
+            <div class="result-item">
+                <span class="result-label">🛡️ 盾</span>
+                <span id="resultShield" class="result-value">---</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">⚔️ 槍</span>
+                <span id="resultSpear" class="result-value">---</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">🏹 弓</span>
+                <span id="resultBow" class="result-value">---</span>
+            </div>
+            
+            <div class="result-item" id="resultTotalWrapper">
+                <span class="result-label">盾槍弓の合計</span>
+                <span id="resultTotal" class="result-value">---</span>
+            </div>
+
+            </div> <hr class="result-divider">
+
+        
+        <div class="result-item" id="resultZakkuriWrapper">
+            <span class="result-label">残りの兵士数</span>
+            <span id="resultZakkuri" class="result-value">---</span>
+        </div>
+
+
+    </div> <script src="script.js"></script>
+</body>
+</html>

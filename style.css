@@ -1,0 +1,283 @@
+/* --- アニメーションの定義 --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 基本設定 --- */
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+h2 { text-align: center; color: #5e42a6; }
+h3 { border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; }
+h4 { margin-top: 25px; color: #555; }
+hr { border: none; border-top: 1px solid #eee; margin: 25px 0; }
+
+/* --- カードデザインの核 --- */
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    padding: 30px 35px;
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+}
+
+/* --- フォーム部品のスタイル --- */
+label {
+    font-weight: 700;
+    font-size: 0.9em;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+input[type="number"]:focus {
+    outline: none;
+    border-color: #5e42a6;
+    box-shadow: 0 0 0 3px rgba(94, 66, 166, 0.1);
+}
+.ratio-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+/* --- ざっくり計算セクション（控えめに） --- */
+.zakkuri-section {
+    background: #fafafa; 
+    border: 1px solid #eee; 
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+.zakkuri-section h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em; 
+}
+
+/* トグルスイッチ (ON/OFF) */
+.zakkuri-toggle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.toggle-status {
+    font-weight: 700;
+    font-size: 1.0em; 
+    margin-left: 12px;
+    color: #888;
+}
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 51px; 
+    height: 29px; 
+}
+.toggle-switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 29px; 
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 21px; 
+    width: 21px; 
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #5e42a6; 
+}
+input:checked + .slider:before {
+    transform: translateX(22px); 
+}
+input:checked ~ .toggle-status {
+    color: #5e42a6;
+}
+
+/* --- ★★★ ここからが修正点 ★★★ --- */
+
+/* ボタン式ラジオ */
+.zakkuri-options {
+    /* ★ JSで 'grid' か 'none' が設定される */
+    display: none; /* デフォルトは非表示 */
+    
+    /* ★ display: grid; が設定された時に、これが適用される */
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 8px;
+}
+/* ★ ただし、デフォルトでは非表示にする（JSで制御する） */
+/* (もしJSが古いと、最初から表示されてしまう可能性があります) */
+/* (その場合は、user_130 の JS に更新してください) */
+
+
+.zakkuri-options input[type="radio"] {
+    display: none; 
+}
+.zakkuri-options .button-label {
+    padding: 8px 5px; 
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85em; 
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.zakkuri-options input[type="radio"]:checked + .button-label {
+    background-color: #f5f3ff;
+    border-color: #5e42a6;
+    color: #5e42a6;
+}
+.zakkuri-options .button-label:hover {
+    border-color: #aaa;
+}
+
+/* --- ★★★ 修正ここまで ★★★ --- */
+
+
+/* --- ボタンのスタイル --- */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background: linear-gradient(45deg, #5e42a6, #3b76ff);
+    color: white;
+    font-size: 1.1em;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- エラーメッセージのスタイル --- */
+.error-message {
+    color: #dc3545;
+    font-weight: 700;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* --- 結果表示エリアのスタイル --- */
+.result-area {
+    margin-top: 10px;
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 10px; 
+}
+.result-item {
+    background-color: #fafbff;
+    padding: 15px 10px;
+    border-radius: 10px;
+    border: 1px solid #e0e6ff;
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
+}
+.result-label {
+    display: block;
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.result-value {
+    display: block;
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #3b76ff;
+    word-wrap: break-word;
+    line-height: 1.2;
+}
+
+/* --- 「合計」の枠 のスタイル --- */
+#resultTotalWrapper {
+    grid-column: 1 / 4; 
+    margin-top: 5px; 
+    background-color: #f5f3ff;
+    border-color: #dcd4ff;
+}
+#resultTotalWrapper .result-value {
+    color: #5e42a6; 
+}
+
+
+/* --- 新しい区切り線 (hr) のスタイル --- */
+hr.result-divider {
+    border: none;
+    border-top: 1px solid #eee; 
+    margin: 15px 0; 
+}
+
+
+/* --- 「切り捨て・余り」の枠（独立した項目として）--- */
+#resultZakkuriWrapper {
+    background-color: #fafafa;
+    border: 1px solid #eee; 
+    padding: 10px 15px; 
+    box-shadow: none; 
+    animation: none; 
+    border-radius: 8px;
+}
+#resultZakkuriWrapper:hover {
+    transform: none;
+}
+#resultZakkuriWrapper .result-label {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 2px;
+}
+#resultZakkuriWrapper .result-value {
+    font-size: 1.3em;
+    color: #333;
+}
